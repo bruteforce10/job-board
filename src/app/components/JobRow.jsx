@@ -1,10 +1,9 @@
-"use client";
+"use server";
 import { FaRegHeart } from "react-icons/fa6";
-import TimeAgo from "react-time-ago";
-import "../utils/timeAgoConfig.js";
+import TimeAgoComponent from "./TimeAgoComponent";
+import Link from "next/link";
 
-export default function JobRow({ jobInfo }) {
-  console.log(jobInfo);
+export default async function JobRow({ jobInfo }) {
   return (
     <>
       <div className="bg-white p-6 rounded-lg shadow-sm relative  md:flex">
@@ -25,17 +24,22 @@ export default function JobRow({ jobInfo }) {
                 {jobInfo.orgName || "?"}
               </div>
               <div className="font-bold text-lg mb-1">{jobInfo.title}</div>
-              <div className="text-gray-500 text-sm">
-                Remote &middot; United States | Full time
+              <div className="text-gray-500 text-sm capitalize">
+                {jobInfo.remote} &middot; {jobInfo.country}, {jobInfo.city}{" "}
+                &middot; | {jobInfo.type}-time
+                {jobInfo.isAdmin && (
+                  <>
+                    {" "}
+                    &middot;{" "}
+                    <Link href={"/jobs/edit/" + jobInfo._id}>Edit</Link>{" "}
+                    &middot; <button>Delete</button>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="content-end text-gray-500 text-sm">
-              <TimeAgo
-                date={jobInfo.createdAt}
-                locale="id"
-                timeStyle="round-minute"
-              />
+              <TimeAgoComponent createdAt={jobInfo.createdAt} />
             </div>
           </div>
         </div>

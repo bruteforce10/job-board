@@ -18,7 +18,7 @@ import ImageUpload from "./ImageUpload";
 import { redirect } from "next/navigation";
 import { saveJobAction } from "../actions/jobActions";
 
-export default function JobForm({ orgId }) {
+export default function JobForm({ orgId, jobDoc }) {
   const [country, setCountry] = useState(null);
   const [currentState, setCurrentState] = useState(null);
   const [currentCity, setCurrentCity] = useState(null);
@@ -42,12 +42,20 @@ export default function JobForm({ orgId }) {
         action={handleSaveJob}
         className="container mt-6 flex flex-col gap-4"
       >
-        <TextField.Root name="title" placeholder="Job Title" />
+        {jobDoc && <input type="hidden" name="id" value={jobDoc._id} />}
+        <TextField.Root
+          name="title"
+          placeholder="Job Title"
+          defaultValue={jobDoc?.title || ""}
+        />
 
         <div className="grid sm:grid-cols-3 gap-6 *:grow">
           <div>
             Remote?
-            <RadioGroup.Root defaultValue={"hybrid"} name="remote">
+            <RadioGroup.Root
+              defaultValue={jobDoc?.remote || "hybrid"}
+              name="remote"
+            >
               <RadioGroup.Item value="onsite">On-site</RadioGroup.Item>
               <RadioGroup.Item value="hybrid">Hybrid-remote</RadioGroup.Item>
               <RadioGroup.Item value="remote">Fully remote</RadioGroup.Item>
@@ -55,7 +63,7 @@ export default function JobForm({ orgId }) {
           </div>
           <div>
             Full time?
-            <RadioGroup.Root defaultValue={"full"} name="type">
+            <RadioGroup.Root defaultValue={jobDoc?.type || "full"} name="type">
               <RadioGroup.Item value="project">Project</RadioGroup.Item>
               <RadioGroup.Item value="part">Part-time</RadioGroup.Item>
               <RadioGroup.Item value="full">Full-time</RadioGroup.Item>
@@ -63,7 +71,7 @@ export default function JobForm({ orgId }) {
           </div>
           <div>
             Salary
-            <TextField.Root name="salary">
+            <TextField.Root name="salary" defaultValue={jobDoc?.salary || ""}>
               <TextField.Slot>$</TextField.Slot>
               <TextField.Slot>k/year</TextField.Slot>
             </TextField.Root>
@@ -110,16 +118,28 @@ export default function JobForm({ orgId }) {
         <div className="sm:flex">
           <div className="w-1/3">
             <h3>Job Icon</h3>
-            <ImageUpload name={"jobIcon"} Icon={FaStar} />
+            <ImageUpload
+              name={"jobIcon"}
+              Icon={FaStar}
+              defaultValue={jobDoc?.jobIcon || ""}
+            />
           </div>
           <div className="grow">
             <h3>Contact person</h3>
             <div className="flex gap-2">
               <div className="">
-                <ImageUpload name={"contactPhoto"} Icon={FaUser} />
+                <ImageUpload
+                  name={"contactPhoto"}
+                  Icon={FaUser}
+                  defaultValue={jobDoc?.contactPhoto || ""}
+                />
               </div>
               <div className="grow flex flex-col gap-1">
-                <TextField.Root placeholder="Firdi Audi" name="contactName">
+                <TextField.Root
+                  placeholder="Firdi Audi"
+                  name="contactName"
+                  defaultValue={jobDoc?.contactName || ""}
+                >
                   <TextField.Slot>
                     <FaUser />
                   </TextField.Slot>

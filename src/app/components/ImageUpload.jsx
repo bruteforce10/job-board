@@ -4,9 +4,9 @@ import axios from "axios";
 import Image from "next/image";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-export default function ImageUpload({ Icon, name }) {
+export default function ImageUpload({ Icon, name, defaultValue = "" }) {
   const fileRef = useRef(null);
-  const [url, setUrl] = useState(null);
+  const [url, setUrl] = useState(defaultValue);
   const [isUploading, setIsUploading] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
 
