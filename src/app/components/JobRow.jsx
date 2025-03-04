@@ -1,9 +1,12 @@
-"use server";
+"use client";
 import { FaRegHeart } from "react-icons/fa6";
 import TimeAgoComponent from "./TimeAgoComponent";
 import Link from "next/link";
+import axios from "axios";
 
-export default async function JobRow({ jobInfo }) {
+
+
+export default function JobRow({ jobInfo }) {
   return (
     <>
       <div className="bg-white p-6 rounded-lg shadow-sm relative  md:flex">
@@ -32,7 +35,10 @@ export default async function JobRow({ jobInfo }) {
                     {" "}
                     &middot;{" "}
                     <Link href={"/jobs/edit/" + jobInfo._id}>Edit</Link>{" "}
-                    &middot; <button>Delete</button>
+                    &middot; <button type="button" onClick={async () => {
+                      await axios.delete("/api/jobs?id=" + jobInfo._id)
+                      window.location.reload()
+                    }} >Delete</button>
                   </>
                 )}
               </div>

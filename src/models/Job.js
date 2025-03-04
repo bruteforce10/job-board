@@ -12,7 +12,7 @@ const JobSchema = new Schema(
     city: { type: String, required: true },
     countryId: { type: String, required: true },
     stateId: { type: String, required: true },
-    cityId: { type: String, required: true },
+    cityId: { type: String, required: true }, 
     jobIcon: { type: String },
     contactPhoto: { type: String },
     contactName: { type: String, required: true },
