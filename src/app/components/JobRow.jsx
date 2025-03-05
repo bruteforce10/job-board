@@ -4,8 +4,6 @@ import TimeAgoComponent from "./TimeAgoComponent";
 import Link from "next/link";
 import axios from "axios";
 
-
-
 export default function JobRow({ jobInfo }) {
   return (
     <>
@@ -23,8 +21,13 @@ export default function JobRow({ jobInfo }) {
           </div>
           <div className="grow sm:flex">
             <div className="grow">
-              <div className="text-gray-500 text-sm">
-                {jobInfo.orgName || "?"}
+              <div>
+                <Link
+                  href={"/jobs/" + jobInfo.orgId}
+                  className="text-gray-500 text-sm"
+                >
+                  {jobInfo.orgName || "?"}
+                </Link>
               </div>
               <div className="font-bold text-lg mb-1">{jobInfo.title}</div>
               <div className="text-gray-500 text-sm capitalize">
@@ -35,10 +38,16 @@ export default function JobRow({ jobInfo }) {
                     {" "}
                     &middot;{" "}
                     <Link href={"/jobs/edit/" + jobInfo._id}>Edit</Link>{" "}
-                    &middot; <button type="button" onClick={async () => {
-                      await axios.delete("/api/jobs?id=" + jobInfo._id)
-                      window.location.reload()
-                    }} >Delete</button>
+                    &middot;{" "}
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        await axios.delete("/api/jobs?id=" + jobInfo._id);
+                        window.location.reload();
+                      }}
+                    >
+                      Delete
+                    </button>
                   </>
                 )}
               </div>

@@ -36,7 +36,7 @@ export default function JobForm({ orgId, jobDoc }) {
     redirect(`/jobs/${jobDoc.orgId}`);
   }
 
-  console.log(jobDoc)
+  console.log(jobDoc);
 
   return (
     <Theme>
@@ -84,7 +84,9 @@ export default function JobForm({ orgId, jobDoc }) {
           <div className="flex flex-col sm:flex-row gap-4 *:grow">
             <CountrySelect
               containerClassName="form-group"
-              defaultValue={!country ? {id: jobDoc?.countryId, name: jobDoc?.country} : 0 }
+              defaultValue={
+                !country ? { id: jobDoc?.countryId, name: jobDoc?.country } : 0
+              }
               inputClassName=""
               onChange={(_country) => {
                 setCountry(_country);
@@ -97,7 +99,11 @@ export default function JobForm({ orgId, jobDoc }) {
 
             <StateSelect
               countryid={country?.id}
-              defaultValue={!currentState ? {id: jobDoc?.stateId, name: jobDoc?.state} : currentState}
+              defaultValue={
+                !currentState
+                  ? { id: jobDoc?.stateId, name: jobDoc?.state }
+                  : currentState
+              }
               containerClassName="form-group"
               inputClassName=""
               onChange={(_state) => setCurrentState(_state)}
@@ -109,7 +115,11 @@ export default function JobForm({ orgId, jobDoc }) {
               countryid={country?.id}
               stateid={currentState?.id}
               containerClassName="form-group"
-              defaultValue={!currentCity ? {id: jobDoc?.cityId, name: jobDoc?.city} : currentCity }
+              defaultValue={
+                !currentCity
+                  ? { id: jobDoc?.cityId, name: jobDoc?.city }
+                  : currentCity
+              }
               inputClassName=""
               onChange={(_city) => setCurrentCity(_city)}
               onTextChange={(_txt) => console.log(_txt)}
@@ -159,7 +169,7 @@ export default function JobForm({ orgId, jobDoc }) {
                   placeholder="Email"
                   type="email"
                   name="contactEmail"
-                   defaultValue={jobDoc?.contactEmail || ""}
+                  defaultValue={jobDoc?.contactEmail || ""}
                 >
                   <TextField.Slot>@</TextField.Slot>
                 </TextField.Root>
@@ -169,7 +179,7 @@ export default function JobForm({ orgId, jobDoc }) {
         </div>
 
         <TextArea
-        defaultValue={jobDoc?.description || ""}
+          defaultValue={jobDoc?.description || ""}
           placeholder="Job Description"
           resize={"vertical"}
           name="description"
