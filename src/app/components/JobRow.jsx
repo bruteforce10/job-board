@@ -24,12 +24,16 @@ export default function JobRow({ jobInfo }) {
               <div>
                 <Link
                   href={"/jobs/" + jobInfo.orgId}
-                  className="text-gray-500 text-sm"
+                  className="text-gray-500 text-sm hover:underline"
                 >
                   {jobInfo.orgName || "?"}
                 </Link>
               </div>
-              <div className="font-bold text-lg mb-1">{jobInfo.title}</div>
+              <div className="font-bold text-lg mb-1">
+                <Link className="hover:underline" href={"/show/" + jobInfo._id}>
+                  {jobInfo.title}
+                </Link>
+              </div>
               <div className="text-gray-500 text-sm capitalize">
                 {jobInfo.remote} &middot; {jobInfo.country}, {jobInfo.city}{" "}
                 &middot; | {jobInfo.type}-time
